@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <title>Groupwork</title>
+</head>
+<body>
+    <div>
+        <h1>Groupwork App</h1>
+    </div>
+    
+    <!-- the canvas -->
+    <div class="container">
+        <div class="groupWork" id="groupWork">
+            <ul>
+                <ol>Subject: {{product.subject}}</ol> 
+                <ol>Location: {{product.place}}</ol>
+                <ol>Price: {{product.price}}</ol> 
+                <ol>Spaces: {{product.space}}</ol> 
+            </ul>
+            
+            <!-- add to cart button -->
+            <button v-on:click="changeFunction" v-if="canAddToCart">Add to Cart</button>
+            <!-- disable button if all the items are added to the cart -->
+            <div v-else>
+                <button disabled>Add to Cart</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- The Script -->
+    <script>
+    let afterSchoolClub = new Vue({
+        el:'#groupWork', 
+        data:{ 
+            sitename: "Groupwork App",
+        product: {
+            id: 100,
+            subject: "Math",
+            place:"London",
+            price:"£100",
+            space: "5",
+            availableInventory: "5",
+        },
+        cart:[],
+        order: {
+            
+        }
+    },
+    methods: {
+            addItemToCart: function() {
+                this.cart.push(this.product.id);
+            },
+            changeValue: function () {
+                if (this.product.space > 0) {
+                    this.product.space -= 1;
+                }
+            },
+            changeFunction: function () {
+                this.addItemToCart ();
+                this.changeValue ();
+            }
+        },
+        computed: {
+            canAddToCart() {
+                return this.product.availableInventory > this.totalItemsInTheCart;
+            },
+            totalItemsInTheCart: function() {
+                return this.cart.length || "";
+            }
+        }
+    })
+    </script>
+</body>
+</html>
