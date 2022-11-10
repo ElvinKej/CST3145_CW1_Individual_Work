@@ -5,6 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <script src="products.js"></script>
     <link rel="stylesheet" href="style.css">
     <title>Groupwork</title>
 </head>
@@ -29,13 +30,27 @@
             <div v-else>
                 <button disabled>Add to Cart</button>
             </div>
+        <div>
+            <h1>Checkout</h1>
+            <p>
+                <strong>Name: </strong>
+                <input v-model="order.Firstname"/>
+            </p>
+            <p>
+                <strong>Surname: </strong>
+                <input v-model="order.Lastname"/>
+            </p>
+            <h3>Order Confirmation</h3>
+            <p>Name: {{order.name}}</p>
+            <p>Surname: {{order.surname}}</p>
         </div>
     </div>
+</div>
     
     <!-- The Script -->
     <script>
     let afterSchoolClub = new Vue({
-        el:'#groupWork', 
+        el:'.container', 
         data:{ 
             sitename: "Groupwork App",
         product: {
@@ -48,7 +63,8 @@
         },
         cart:[],
         order: {
-            
+            Firstname: "",
+            Lastname: ""
         }
     },
     methods: {
