@@ -7,30 +7,40 @@
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
     <script src="products.js"></script>
     <link rel="stylesheet" href="style.css">
-    <title>Groupwork</title>
+    <title>CW1 IW</title>
 </head>
 <body>
     <div>
-        <h1>Groupwork App</h1>
+        <h1>CW1 - Individual Work</h1>
     </div>
     
     <!-- the canvas -->
     <div class="container">
         <div class="groupWork" id="groupWork">
-            <ul>
-                <ol>Subject: {{product.subject}}</ol> 
-                <ol>Location: {{product.place}}</ol>
-                <ol>Price: {{product.price}}</ol> 
-                <ol>Spaces: {{product.space}}</ol> 
-            </ul>
+            <div v-for="product in products" id="prod">
+
+                <ul>
+                    <ol>Subject: {{product.subject}}</ol> 
+                    <ol>Location: {{product.location}}</ol>
+                    <ol>Price: {{product.price}}</ol> 
+                    <ol>Spaces: {{product.space}}</ol> 
+                    <ol><img v-bind:src="product.image"></ol>
+                </ul>
+            
             
             <!-- add to cart button -->
-            <button v-on:click="changeFunction" v-if="canAddToCart">Add to Cart</button>
+            <button v-on:click="changeFunction" v-if="canAddToCart(product)">Add to Cart</button> 
             <!-- disable button if all the items are added to the cart -->
             <div v-else>
                 <button disabled>Add to Cart</button>
             </div>
-        <div>
+            </div>
+        </div>
+        <div id="sorting">
+            <button id="Ascending">Ascending</button>
+            <button id="Descending">Descending</button>
+        </div>
+        <div id="Checkout">
             <h1>Checkout</h1>
             <p>
                 <strong>Name: </strong>
@@ -52,20 +62,13 @@
     let afterSchoolClub = new Vue({
         el:'.container', 
         data:{ 
-            sitename: "Groupwork App",
-        product: {
-            id: 100,
-            subject: "Math",
-            place:"London",
-            price:"£100",
-            space: "5",
-            availableInventory: "5",
-        },
+            sitename: "CW1 Vue App",
+        products: products,
         cart:[],
         order: {
             Firstname: "",
             Lastname: ""
-        }
+        },
     },
     methods: {
             addItemToCart: function() {
@@ -79,15 +82,18 @@
             changeFunction: function () {
                 this.addItemToCart ();
                 this.changeValue ();
-            }
+            },
+            canAddToCart(product) {
+                return product.space > this.totalItemsInTheCart;
+            },
         },
         computed: {
-            canAddToCart() {
-                return this.product.availableInventory > this.totalItemsInTheCart;
-            },
             totalItemsInTheCart: function() {
                 return this.cart.length || "";
-            }
+            },
+            ItemsLeft() {
+                return this.product.space - this.totalItemsInTheCart;
+    }
         }
     })
     </script>

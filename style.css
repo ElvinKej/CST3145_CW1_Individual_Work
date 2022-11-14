@@ -1,4 +1,6 @@
-
+* {
+   box-sizing: border-box; 
+}
 body {
     color: black;
     height: 100%;
@@ -12,7 +14,8 @@ body {
     margin: 0;
 }
 
-ul{
+ul {
+    position: relative;
     color: black;
     padding: 10px;
     margin: 10px;
@@ -25,16 +28,22 @@ ol {
     margin: 0;
 }
 
+img {
+    display: block;
+    position: absolute;
+    top: -10px;
+    left: 200px;
+}
 .groupWork {
     border: 1px solid black;
     border-radius: 15px;
-    width: 17%;
+    width: 30%;
     position: relative;
     padding: 0;
     margin: 0;
 }
 
-button {
+/* button {
     position: absolute;
     font-family: Georgia, 'Times New Roman', Times, serif;
     align-items: center;
@@ -45,9 +54,11 @@ button {
     border: 1px solid black;
     cursor: pointer;
     background-color: gainsboro;
+} */
+
+#sorting {
+    flex-direction: row;
 }
-
-
 @media screen and (max-width: 1170px) {
     .groupWork {
         width: 23%;

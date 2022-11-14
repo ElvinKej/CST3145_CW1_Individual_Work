@@ -5,8 +5,7 @@ let products = [
         "location": "London",
         "price": "£100",
         "space": 5,
-        "icon": "image",
-        "Image": "images/"
+        "image": "images/Math.jpg"
     },
     {
         "id": 102,
@@ -14,79 +13,70 @@ let products = [
         "location": "London",
         "price": "£100",
         "space": 5,
-        "icon": "image",
-        "Image": "images/"
+        "image": "images/English.jpg"
     },
     {
         "id": 103,
         "subject": "Science",
-        "location": "London",
+        "location": "Oxford",
         "price": "£100",
         "space": 5,
-        "icon": "image",
-        "Image": "images/"
+        "image": "images/Science.png"
     },
     {
         "id": 104,
         "subject": "History",
-        "location": "London",
-        "price": "£100",
+        "location": "Manchester",
+        "price": "£150",
         "space": 5,
-        "icon": "image",
-        "Image": "images/"
+        "image": "images/History.jpg"
     },
     {
         "id": 105,
         "subject": "Geography",
         "location": "London",
-        "price": "£100",
+        "price": "£80",
         "space": 5,
-        "icon": "image",
-        "Image": "images/"
+        "image": "images/Geography.png"
     },
     {
         "id": 106,
         "subject": "Music",
-        "location": "London",
-        "price": "£100",
+        "location": "Oxford",
+        "price": "£90",
         "space": 5,
-        "icon": "image",
-        "Image": "images/"
+        "image": "images/Music.jpg"
     },
     {
         "id": 107,
         "subject": "Spanish",
-        "location": "London",
-        "price": "£100",
+        "location": "Liverpool",
+        "price": "£90",
         "space": 5,
-        "icon": "image",
-        "Image": "images/"
+        "image": "images/Spanish.png"
     },
     {
         "id": 108,
         "subject": "French",
-        "location": "London",
-        "price": "£100",
+        "location": "Birmingham",
+        "price": "£125",
         "space": 5,
-        "icon": "image",
-        "Image": "images/"
+        "image": "images/French.png"
     },
     {
         "id": 109,
         "subject": "Art",
-        "location": "London",
-        "price": "£100",
+        "location": "Brighton",
+        "price": "£140",
         "space": 5,
-        "icon": "image",
-        "Image": "images/"
+        "image": "images/Art.jpg"
     },
     {
         "id": 110,
         "subject": "Economics",
         "location": "London",
-        "price": "£100",
+        "price": "£125",
         "space": 5,
-        "icon": "image",
-        "Image": "images/"
+        "image": "images/Economics.png"
     }
 ]
