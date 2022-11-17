@@ -7,16 +7,29 @@
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
     <script src="products.js"></script>
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <title>CW1 IW</title>
 </head>
 <body>
-    <div>
-        <h1>CW1 - Individual Work</h1>
-    </div>
     
     <!-- the canvas -->
     <div class="container">
+        <header>
+        <div>
+            <h1 v-text="sitename"></h1>
+        </div>
+        <button v:on-click="toggleShowProduct">
+            {{totalItemsInTheCart}}
+            <span class="fas fa-shopping-cart"></span>View Cart </button>
+        <div id="Banner">
+            <input type="radio" value="product.subject">
+            <input type="radio" value="product.location">
+            <input type="radio" value="product.price">
+            <input type="radio" value="product.space"> 
+        </div>
+        </header>
         <div class="groupWork" id="groupWork">
+            <div v-if="showProduct">
             <div v-for="product in products" id="prod">
 
                 <ul>
@@ -29,26 +42,31 @@
             
             
             <!-- add to cart button -->
-            <button v-on:click="changeFunction" v-if="canAddToCart(product)">Add to Cart</button> 
+            <button v-on:click="addItemToCart(product)" v-if="canAddToCart(product)">Add to Cart</button> 
             <!-- disable button if all the items are added to the cart -->
             <div v-else>
                 <button disabled>Add to Cart</button>
             </div>
+
+            <span v-if="itemsLeft(product) === 0">Sold Out!</span> 
+                    <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} left!</span> 
+                    <span v-else>Available!</span> 
             </div>
         </div>
-        <div id="sorting">
-            <button id="Ascending">Ascending</button>
-            <button id="Descending">Descending</button>
-        </div>
+            <button v-on:click="sortedProductsA(a, b)" id="Ascending">Ascending</button>
+            <button v-on:click="sortedProductsB(a, b)" id="Descending">Descending</button>
+    </div>
         <div id="Checkout">
             <h1>Checkout</h1>
+            
+            </button>
             <p>
                 <strong>Name: </strong>
                 <input v-model="order.Firstname"/>
             </p>
             <p>
                 <strong>Surname: </strong>
-                <input v-model="order.Lastname"/>
+                <input v-model="order.Phonenumber"/>
             </p>
             <h3>Order Confirmation</h3>
             <p>Name: {{order.name}}</p>
@@ -61,39 +79,75 @@
     <script>
     let afterSchoolClub = new Vue({
         el:'.container', 
-        data:{ 
+        data: { 
             sitename: "CW1 Vue App",
+            showProduct: true,
         products: products,
         cart:[],
         order: {
             Firstname: "",
-            Lastname: ""
+            Phonenumber: ""
         },
     },
     methods: {
-            addItemToCart: function() {
-                this.cart.push(this.product.id);
-            },
-            changeValue: function () {
-                if (this.product.space > 0) {
-                    this.product.space -= 1;
-                }
-            },
-            changeFunction: function () {
-                this.addItemToCart ();
-                this.changeValue ();
+            addItemToCart: function(product) {
+                this.cart.push(product.id,);
             },
             canAddToCart(product) {
-                return product.space > this.totalItemsInTheCart;
+                return product.space > this.cartCount(product.id);
+            },
+            toggleShowProduct() {
+                this.showProduct = this.showProduct ? false : true;
+            },
+            cartCount(id) {
+                let count = 0;
+                for (let i = 0; i < this.cart.length; i++) {
+                    if (this.cart[i] === id) {
+                        count++;
+                    }
+                }
+                return count;
+            },
+            itemsLeft(product) {
+                return product.space - this.cartCount(product.id);
             },
         },
         computed: {
             totalItemsInTheCart: function() {
                 return this.cart.length || "";
             },
-            ItemsLeft() {
-                return this.product.space - this.totalItemsInTheCart;
-    }
+            // ItemsLeft() {
+            //     return this.product.space - this.totalItemsInTheCart;
+            // },
+            sortedProductsA() {
+                function ascending(a, b) {
+                    if (a.location > b.location) return 1;
+                    if (a.location < b.location) return -1;
+                    return 0;
+                } 
+                return this.products.sort(ascending);
+            },
+            sortedProductsB() {
+                function descending(a, b) {
+                    if (a.location > b.location) return -1;
+                    if (a.location < b.location) return 1;
+                    return 0;
+                }
+                return this.products.sort(descending);
+            },
+            // sortedProducts() {
+            //     if(this.products.length > 0) {
+            //         let productsArray = this.products.slice(0);
+            //         function compare (a, b) {
+            //             if(a.location.toLowerCase() < b.location.toLowerCase())
+            //             return -1;
+            //             if(a.location.toLowerCase() > b.location.toLowerCase())
+            //             return 1;
+            //         return 0;
+            //         }
+            //         return productsArray.sort(compare);
+            //     }
+            // },
         }
     })
     </script>

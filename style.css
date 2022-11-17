@@ -13,7 +13,9 @@ body {
     padding: 0;
     margin: 0;
 }
-
+#Banner {
+    color: blue;
+}
 ul {
     position: relative;
     color: black;
