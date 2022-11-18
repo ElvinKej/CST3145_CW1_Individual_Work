@@ -5,22 +5,22 @@ let products = [
         "location": "London",
         "price": "£100",
         "space": 3,
-        "image": "images/Math.jpg"
+        "image": "images/Maths.png"
     },
     {
         "id": 102,
         "subject": "English",
         "location": "London",
         "price": "£100",
-        "space": 5,
-        "image": "images/English.jpg"
+        "space": 7,
+        "image": "images/English.png"
     },
     {
         "id": 103,
         "subject": "Science",
         "location": "Oxford",
         "price": "£100",
-        "space": 5,
+        "space": 10,
         "image": "images/Science.png"
     },
     {
@@ -28,15 +28,15 @@ let products = [
         "subject": "History",
         "location": "Manchester",
         "price": "£150",
-        "space": 5,
-        "image": "images/History.jpg"
+        "space": 6,
+        "image": "images/History.png"
     },
     {
         "id": 105,
         "subject": "Geography",
         "location": "London",
         "price": "£80",
-        "space": 5,
+        "space": 6,
         "image": "images/Geography.png"
     },
     {
@@ -44,15 +44,15 @@ let products = [
         "subject": "Music",
         "location": "Oxford",
         "price": "£90",
-        "space": 5,
-        "image": "images/Music.jpg"
+        "space": 22,
+        "image": "images/Music.png"
     },
     {
         "id": 107,
         "subject": "Spanish",
         "location": "Liverpool",
         "price": "£90",
-        "space": 5,
+        "space": 47,
         "image": "images/Spanish.png"
     },
     {
@@ -60,7 +60,7 @@ let products = [
         "subject": "French",
         "location": "Birmingham",
         "price": "£125",
-        "space": 5,
+        "space": 4,
         "image": "images/French.png"
     },
     {
@@ -68,15 +68,15 @@ let products = [
         "subject": "Art",
         "location": "Brighton",
         "price": "£140",
-        "space": 5,
-        "image": "images/Art.jpg"
+        "space": 10,
+        "image": "images/Art.png"
     },
     {
         "id": 110,
         "subject": "Economics",
-        "location": "London",
+        "location": "Sheffield",
         "price": "£125",
-        "space": 5,
+        "space": 13,
         "image": "images/Economics.png"
     }
 ]
