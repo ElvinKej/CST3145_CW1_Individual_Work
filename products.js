@@ -5,7 +5,7 @@ let products = [
         "location": "London",
         "price": "£100",
         "space": 3,
-        "image": "images/Maths.png"
+        "image": "Pictures/Maths.png"
     },
     {
         "id": 102,
@@ -13,7 +13,7 @@ let products = [
         "location": "London",
         "price": "£100",
         "space": 7,
-        "image": "images/English.png"
+        "image": "Pictures/English.png"
     },
     {
         "id": 103,
@@ -21,7 +21,7 @@ let products = [
         "location": "Oxford",
         "price": "£100",
         "space": 10,
-        "image": "images/Science.png"
+        "image": "Pictures/Science.png"
     },
     {
         "id": 104,
@@ -29,7 +29,7 @@ let products = [
         "location": "Manchester",
         "price": "£150",
         "space": 6,
-        "image": "images/History.png"
+        "image": "Pictures/History.png"
     },
     {
         "id": 105,
@@ -37,7 +37,7 @@ let products = [
         "location": "London",
         "price": "£80",
         "space": 6,
-        "image": "images/Geography.png"
+        "image": "Pictures/Geography.png"
     },
     {
         "id": 106,
@@ -45,7 +45,7 @@ let products = [
         "location": "Oxford",
         "price": "£90",
         "space": 22,
-        "image": "images/Music.png"
+        "image": "Pictures/Music.png"
     },
     {
         "id": 107,
@@ -53,7 +53,7 @@ let products = [
         "location": "Liverpool",
         "price": "£90",
         "space": 47,
-        "image": "images/Spanish.png"
+        "image": "Pictures/Spanish.png"
     },
     {
         "id": 108,
@@ -61,7 +61,7 @@ let products = [
         "location": "Birmingham",
         "price": "£125",
         "space": 4,
-        "image": "images/French.png"
+        "image": "Pictures/French.png"
     },
     {
         "id": 109,
@@ -69,7 +69,7 @@ let products = [
         "location": "Brighton",
         "price": "£140",
         "space": 10,
-        "image": "images/Art.png"
+        "image": "Pictures/Art.png"
     },
     {
         "id": 110,
@@ -77,6 +77,6 @@ let products = [
         "location": "Sheffield",
         "price": "£125",
         "space": 13,
-        "image": "images/Economics.png"
+        "image": "Pictures/Economics.png"
     }
 ]
