@@ -41,9 +41,11 @@
         <div class="productContainer" v-if="showProduct">
             <div v-for="product in products" id="prod">
                 <ul>
-                    <ol>Subject: {{product.topic}}</ol> 
+                    <ol>Subject: {{product.subject}}</ol> 
                     <ol>Location: {{product.location}}</ol>
-                    <ol>Price: {{product.price}}</ol> 
+                    <ol>Price: {{product.price}}</ol>
+                    <ol>Space: {{product.space}}</ol> 
+                    <ol><img v-bind:src="product.image"></ol>
                 </ul>
 
                 <!-- Cart button -->
@@ -84,7 +86,7 @@
         let Vueapplication = new Vue ({
             el: "#App",
             data: {
-                sitename: "CW2 Groupwork ",
+                sitename: "CW2 Individual Work ",
                 showProduct: true,
                 products: [],// products,
                 cart:[],
