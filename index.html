@@ -8,7 +8,8 @@
     <script src="products.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
-    <title>CW1 IW</title>
+    <link rel="manifest" href="petstore.webmanifest">
+    <title>Vue App</title>
 </head>
 <body>
     <!-- Canvas -->
@@ -88,25 +89,25 @@
             data: {
                 sitename: "CW2 Individual Work ",
                 showProduct: true,
-                products: [],// products,
+                products: products, 
                 cart:[],
                 order: {
                     Firstname: "",
                     Phonenumber: ""
                 },
             },
-            created: function() {
-                fetch("http://localhost:3000/lessons").then(
-                    function(response) {
-                        response.json().then(
-                            function(json) {
-                                console.log(json);
-                                Vueapplication.products = json;
-                            }
-                        )
-                    }
-                )
-            },
+            // created: function() {
+            //     fetch("http://localhost:3000/lessons").then(
+            //         function(response) {
+            //             response.json().then(
+            //                 function(json) {
+            //                     console.log(json);
+            //                     Vueapplication.products = json;
+            //                 }
+            //             )
+            //         }
+            //     )
+            // },
             methods: {
                 addItemToCart: function(product) {
                 this.cart.push(product.id);
