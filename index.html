@@ -96,18 +96,19 @@
                     Phonenumber: ""
                 },
             },
-            // created: function() {
-            //     fetch("http://localhost:3000/lessons").then(
-            //         function(response) {
-            //             response.json().then(
-            //                 function(json) {
-            //                     console.log(json);
-            //                     Vueapplication.products = json;
-            //                 }
-            //             )
-            //         }
-            //     )
-            // },
+            created: function() {
+                //fetch("http://localhost:3000/lessons").then(
+                fetch("http://webstorev1-env.eba-kvhfmh8p.eu-west-2.elasticbeanstalk.com/collections/products").then(
+                    function(response) {
+                        response.json().then(
+                            function(json) {
+                                console.log(json);
+                                Vueapplication.products = json;
+                            }
+                        )
+                    }
+                )
+            },
             methods: {
                 addItemToCart: function(product) {
                 this.cart.push(product.id);
