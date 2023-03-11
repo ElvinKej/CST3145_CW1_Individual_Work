@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
-    <!-- <script src="products.js"></script> -->
+    <script src="products.js"></script>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
     <link rel="manifest" href="webstore.webmanifest">
@@ -89,7 +89,8 @@
             data: {
                 sitename: "CW2 Individual Work ",
                 showProduct: true,
-                products: [], 
+                //products: [],
+                products: products,  
                 cart:[],
                 order: {
                     Firstname: "",
@@ -97,18 +98,21 @@
                 },
             },
             created: function() {
-                //fetch("http://localhost:3000/lessons").then(
-                fetch("https://webstorev1-env.eba-kvhfmh8p.eu-west-2.elasticbeanstalk.com/collections/products").then(
-                    function(response) {
-                        response.json().then(
-                            function(json) {
-                                console.log(json);
-                                Vueapplication.products = json;
-                            }
-                        )
-                    }
-                )
-            },
+                if ("serviceWorker" in navigator) {
+                    navigator.serviceWorker.register("service-worker.js");
+                }
+            //     fetch("http://localhost:3000/lessons").then(
+            //     fetch("https://webstorev1-env.eba-kvhfmh8p.eu-west-2.elasticbeanstalk.com/collections/products").then(
+            //         function(response) {
+            //             response.json().then(
+            //                 function(json) {
+            //                     console.log(json);
+            //                     Vueapplication.products = json;
+            //                 }
+            //             )
+            //         }
+            //     )
+             },
             methods: {
                 addItemToCart: function(product) {
                 this.cart.push(product.id);
