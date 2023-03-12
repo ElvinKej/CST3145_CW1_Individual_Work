@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <script src="products.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css"> 
+    
+    <title>x</title>
+
+</head>
+<body>
+    <div class="container" id=app">
+        <!-- search -->
+        <!-- <div class="search">
+            <input type="text" placeholder="Type to search" id="search-input">
+            <span class="fas fa-search-minus"></span>
+            </input>
+        </div> -->
+
+        <!-- Title/top page -->
+        <header>
+            <!-- heading/website title -->
+            <h1 v-text="sitename"></h1>
+            <!-- Checkout button with enable/disabled -->
+            <div class="enabledDisabled">
+                <button v-if="enableCart" v-on:click="toggleShowProduct"> {{totalItemsInTheCart}}
+                    <span class="fas fa-cart-arrow-down"></span> View Cart
+                </button>
+                
+                <button disabled v-else>
+                    <span class= "fas fa-cart-arrow-down"></span> View Cart
+                </button>
+            </div>
+        </header>
+
+        <!-- start of content-->
+        <div v-if="showProduct">
+            <div class="prod" v-for="product in products">
+                <!-- the lst of the lessons -->
+                <ul>
+                    <ol>Subject: {{product.subject}}</ol> 
+                    <ol>Location: {{product.location}}</ol>
+                    <ol>Price: {{product.price}}</ol>
+                    <ol>Space: {{product.space}}</ol> 
+                    <ol><img v-bind:src="product.image"></ol>
+                </ul>
+
+                <!-- Cart button -->
+                <button v-on:click="addItemToCart(product)" v-if="canAddToCart(product)">Add to Cart</button> 
+            <!-- disable button if all the items are added to the cart -->
+                <button v-else disabled>Add to Cart</button>
+                
+                <span v-if="itemsLeft(product) === 0">Out of Stock!</span>
+                <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} remaining</span>
+                <span v-else>Buy now!</span>
+            </div>
+        </div>
+
+        <div v-else>
+            <h2>Shopping Cart</h2>
+            <!-- added/remove products -->
+            <div v-for="product in cart">
+                <ul>
+                    <ol>Subject: {{product.subject}}</ol> 
+                    <ol>Location: {{product.location}}</ol>
+                    <ol>Price: {{product.price}}</ol>
+                    <ol>Space: {{product.space}}</ol> 
+                    <ol><img v-bind:src="product.image"></ol>
+                </ul>
+                <button v-on:click="removeItemToCart(product)">Remove from Cart</button>
+            </div>
+
+    </div>
+    
+    <script>
+        let Vueapplication = new Vue ({
+            el: "#app",
+            data: {
+                sitename: "Vue App V.2",
+                showProduct: true,
+                products: products,
+                //products: [],
+                cart: [],
+                order: {
+                    Firstname: "",
+                    Phonenumber: ""
+                }
+            },
+            methods: {
+                toggleShowProduct() {
+                        this.showProduct = this.showProduct ? false : true ;
+                    },
+                canAddToCart(selectedProduct) {
+                    return selectedProduct.space > 0;
+                },
+            },
+        })
+        
+    </script>
+</body>
+</html>

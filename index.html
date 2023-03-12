@@ -17,8 +17,11 @@
         <header>
             <h1 v-text="sitename"></h1>
             <div id="ShoppingCart">
-                <button v:on-click="toggleShowProduct"> {{totalItemsInTheCart}}
+                <button v-if="enableCart" v:on-click="toggleShowProduct"> {{totalItemsInTheCart}}
                 <span class="fas fa-shopping-cart"></span>View Shopping Cart
+                </button>
+                <button disabled v-else>
+                    <span class= "fas fa-cart-arrow-down"></span> View Cart
                 </button>
             </div>
             <div id="Banner">
@@ -60,8 +63,17 @@
             </div>
         </div>
 
-        <div v-else>
+        <div v-else id="checkelse">
             <h1>Checkout</h1>
+            <div v-for="product in cart" id="cartprod">
+                <ul>
+                    <ol>Subject: {{product.subject}}</ol> 
+                    <ol>Location: {{product.location}}</ol>
+                    <ol>Price: {{product.price}}</ol>
+                    <ol>Space: {{product.space}}</ol> 
+                    <ol><img v-bind:src="product.image"></ol>
+                </ul>
+            </div>
 
             <div class="checkout">
                 <p>
@@ -143,6 +155,9 @@
                 totalItemsInTheCart: function () {
                     return this.cart.length || "";
                 },
+                enableCart() {
+                        return this.cart.length > 0;
+                    },
                 sortedSubject() {
                     function ascending(a, b) {
                         if (a.subject > b.subject) return 1;
