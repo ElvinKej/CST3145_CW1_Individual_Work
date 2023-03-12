@@ -22,15 +22,15 @@ self.addEventListener("install", function(e) {
     }));
 });
 
-//Static Caching
-self.addEventListener('fetch', function (e) {
-    e.respondWith (
-        caches.match(e.request).then(function (r) {
-            console.log('[Service Worker] Fetching resource:' + e.request.url);
-            return r;
-        })
-    );
-});
+// //Static Caching
+// self.addEventListener('fetch', function (e) {
+//     e.respondWith (
+//         caches.match(e.request).then(function (r) {
+//             console.log('[Service Worker] Fetching resource:' + e.request.url);
+//             return r;
+//         })
+//     );
+// });
 
 //Dynamic Caching
 self.addEventListener("fetch", function(e) {
