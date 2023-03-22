@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <script src="https:/unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <script src="products.js"></script>
+    <link rel="stylesheet" href="style2.css">
+    <title>Vue App</title>
+</head>
+<body>
+    <div id="app">
+        <header>
+            <h1>{{sitename}}</h1>
+            <div id="Banner">
+            <button v-if="enableCart" @click="toggleShowProduct"> {{totalItemsInTheCart}} Checkout
+                <span class="fas fa-shopping cart"></span>
+            </button>
+            <button disabled v-else>
+                <span class= "fas fa-cart-arrow-down"></span> View Cart
+            </button>
+            <div id="sorting">
+                <button>subject</button>
+                <button>location</button>
+                <button>price</button>
+                <button>space</button>
+                <div>
+                    <button>Ascending</button>
+                    <button>Descending</button>
+                </div>
+            </div>
+            <div class="search-container">
+                <input type="text" placeholder="Search" id="Input">
+                <span class ="fas fa-search"></span>
+            </div>
+        </div>
+        </header>
+
+        <div v-if="showProduct">
+            <div class="lessons" v-for="product in products">
+                <p>Subject: {{product.subject}} </p>
+                <p>Location: {{product.location}} </p>
+                <p>Price: {{product.price}}</p>
+                <p>Space: {{product.space}}</p>
+                <img v-bind:src="product.image">
+        
+                <button v-on:click="addItemToCart(product)" v-if="canAddToCart(product)">Add to the Cart</button>
+                <button disabled v-else>Add to Cart</button>
+
+                <span v-if="itemsLeft(product) === 0">Out of Stock!</span>
+                <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} remaining</span>
+                <span v-else>Buy now!</span>
+            </div>
+        </div>
+
+        <div v-else>
+            <div class="lessons" v-for="product in cart">
+                <p>Subject: {{product.subject}} </p>
+                <p>Location: {{product.location}} </p>
+                <p>Price: {{product.price}}</p>
+                <p>Space: {{product.space}}</p>
+                <img v-bind:src="product.image">
+        
+            </div>
+            <div id="Checkout">
+                <h2>Checkout</h2>
+                <p>First Name:</p>
+                <input v-model.trim="order.firstName" />
+                <p>Last Name:</p>
+                <input v-model.trim="order.LastName" />
+            </div>
+
+            <div id="Orderconf">
+                <h2>Order Information</h2>
+                <p>First Name: {{order.firstName}}</p>
+                <p>Last name: {{order.LastName}}</p>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        var webstore = new Vue ({
+            el: '#app',
+            data: {
+                sitename:'Vue.js App',
+                showProduct: true,
+                products: products,
+                cart: [],
+                order: {
+                    firstName:'',
+                    LastName:''
+                },
+            },
+            methods: {
+                addItemToCart: function (selectedProduct) {
+                    let x = parseFloat(selectedProduct.space);
+                    let cartLess = structuredClone(selectedProduct);
+                    if (x > 0) {
+                        x = x - 1;
+                        cartLess.space = 1;
+                        this.cart.push(cartLess);
+                        selectedProduct.space = x;
+                    }
+                },
+                toggleShowProduct() {
+                    this.showProduct = this.showProduct ? false : true;
+                },
+                canAddToCart(product) {
+                return product.space > this.cartCount(product.id);
+                },
+                cartCount(id) {
+                let count = 0;
+                for (let i = 0; i < this.cart.length; i++) {
+                    if (this.cart[i] === id) {
+                        count++;
+                    }
+                }
+                return count;
+            },
+                itemsLeft(product) {
+                    return product.space - this.cartCount(product.id);
+                },
+            },
+            computed: {
+                totalItemsInTheCart: function() {
+                    return this.cart.length || "";
+                },
+                enableCart() {
+                        return this.cart.length > 0;
+                    },
+            },
+        });
+    </script>
+</body>
+</html>

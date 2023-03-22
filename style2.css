@@ -1,0 +1,46 @@
+* {
+    box-sizing: border-box;
+}
+body {
+    color: black;
+    height: 100%;
+    width: 3500px;
+    position: relative;
+    padding: 20px;
+}
+.lessons {
+    border-style: groove;
+    border-color: lightskyblue;
+    background-color: lightgoldenrodyellow;
+    border-radius: 10px;
+    width: 15%;
+    align-items: center;
+    padding: 5px 10px;
+    float:inline-start;
+}
+#sorting {
+    position: relative;
+    flex-direction: row;
+}
+#Banner {
+    position: relative;
+    background-color: lightgoldenrodyellow;
+    border-style: groove;
+    border-width: 10px;
+    width: 15%;
+}
+button {
+    font-family: Georgia, 'Times New Roman', Times, serif;
+    text-align: center;
+    font-weight: bold;
+    background-color: lightcyan;
+    text-decoration: black;
+    border-radius: 3px;
+    border: 1px solid black;
+    cursor: pointer;
+}
+.search-container {
+    position: absolute;
+    left: 270px;
+    top: 37px;
+}
