@@ -1,5 +1,5 @@
 * {
-   box-sizing: border-box; 
+    box-sizing: border-box;
 }
 body {
     color: black;
@@ -8,80 +8,25 @@ body {
     position: relative;
     padding: 20px;
 }
-
-#container {
-    width: 100%;
-    padding: 0;
-    margin: 0;
-    height: 100%;
+.lessons {
+    border-style: groove;
+    border-color: lightskyblue;
+    background-color: lightgoldenrodyellow;
+    border-radius: 10px;
+    width: 15%;
+    align-items: center;
+    padding: 5px 10px;
 }
-#ShoppingCart {
+#sorting {
     position: relative;
-    top: -15px;
-    color: aqua;
+    flex-direction: row;
 }
 #Banner {
     position: relative;
-    top: -11px;
-    color: blue;
-}
-
-/* .productContainer {
-    position: relative;
-    display: flex;
-    left: 10px;
-}
-
-.productContainer button, span {
-    position: relative;
-    top: -5px;
-    left: 30px;
-    margin-bottom: 10px
-}
-
-.productContainer ul {
-    position: relative;
-    justify-content: center;
-    text-align: center;
-    align-items: center;
-} */
-
-ul {
-    position: relative;
-    color: black;
-    padding: 10px;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    line-height: 20px;
-    display: flex;
-    flex-direction: column;
-    border: 1px solid lightblue;
-    border-radius: 10px;
-    width: 100%;
-    text-align: center;
-    margin: 30px 0px 20px 10px;
-    padding: 2px;
-}
-
-ol {
-    padding: 0;
-    margin: 0;
-    width: 200px;
-}
-
-img {
-    display: block;
-    position: absolute;
-    top: -10px;
-    left: 200px;
-}
-#App {
-    border: 2px solid black;
-    border-radius: 15px;
     background-color: lightgoldenrodyellow;
-    width: 30%;
-    position: relative;
-    padding: 0;
-    margin: 0;
+    border-style: groove;
+    border-width: 10px;
+    width: 15%;
 }
 button {
     font-family: Georgia, 'Times New Roman', Times, serif;
@@ -92,30 +37,9 @@ button {
     border-radius: 3px;
     border: 1px solid black;
     cursor: pointer;
-} 
+}
 .search-container {
     position: absolute;
-    top: 65px;
-    left: 200px;
-}
-#sorting {
-    position: absolute;
-    top: 115px;
-    flex-direction: row;
-}
-
-.fa-shopping-cart {
-    position: relative;
-    color: red;
-    left: -2px;
-    top: 1px;
-}
-
-@media screen and (max-width: 1170px) {
-    .groupWork {
-        width: 23%;
-        font-size: 16px;
-        padding: 0;
-        margin: 0;
-    }
+    left: 270px;
+    top: 37px;
 }

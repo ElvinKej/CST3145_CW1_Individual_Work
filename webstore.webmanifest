@@ -1,6 +1,6 @@
 {
-    "name": "My Pet Store PWA",
-    "short_name": "Petstore",
+    "name": "My Webstore PWA",
+    "short_name": "Webstore",
     "description": "My online web store",
     "icons": [
         {

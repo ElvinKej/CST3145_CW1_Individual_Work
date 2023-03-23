@@ -1,0 +1,219 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/vue@2.7.8/dist/vue.js"></script>
+    <script src="products.js"></script>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link rel="manifest" href="webstore.webmanifest">
+    <title>Vue App</title>
+</head>
+<body>
+    <!-- Canvas -->
+    <div id="App">
+        <header>
+            <h1 v-text="sitename"></h1>
+            <div id="ShoppingCart">
+                <button v-if="enableCart" v:on-click="toggleShowProduct"> {{totalItemsInTheCart}}
+                <span class="fas fa-shopping-cart"></span>View Shopping Cart
+                </button>
+                <button disabled v-else>
+                    <span class= "fas fa-cart-arrow-down"></span> View Cart
+                </button>
+            </div>
+            <div id="Banner">
+                <button v:on:click="sortedSubject()">subject</button>
+                <button v-on:click="sortedLocation()">location</button>
+                <button v:on:click="sortedPrice()">price</button>
+                <button v:on:click="sortedSpace()">space</button>
+            </div>
+            <div id="sorting">
+                <button v-on:click="sortedLocation()" id="Ascending">Ascending</button>
+                <button v-on:click="sortedProductsB()" id="Descending">Descending</button>
+            </div>
+            <div class="search-container">
+                <input type="text" placeholder="Search" id="Input">
+                <span class ="fas fa-search"></span>
+            </div>
+        </header>
+        
+
+        <!-- Main -->
+        <div class="productContainer" v-if="showProduct">
+            <div v-for="product in products" id="prod">
+                <ul>
+                    <ol>Subject: {{product.subject}}</ol> 
+                    <ol>Location: {{product.location}}</ol>
+                    <ol>Price: {{product.price}}</ol>
+                    <ol>Space: {{product.space}}</ol> 
+                    <ol><img v-bind:src="product.image"></ol>
+                </ul>
+
+                <!-- Cart button -->
+                <button v-on:click="addItemToCart(product)" v-if="canAddToCart(product)">Add to Cart</button> 
+            <!-- disable button if all the items are added to the cart -->
+                <button v-else disabled>Add to Cart</button>
+                
+                <span v-if="itemsLeft(product) === 0">Out of Stock!</span>
+                <span v-else-if="itemsLeft(product) < 5">Only {{itemsLeft(product)}} remaining</span>
+                <span v-else>Buy now!</span>
+            </div>
+        </div>
+
+        <div v-else id="checkelse">
+            <h1>Checkout</h1>
+            <div v-for="product in cart" id="cartprod">
+                <ul>
+                    <ol>Subject: {{product.subject}}</ol> 
+                    <ol>Location: {{product.location}}</ol>
+                    <ol>Price: {{product.price}}</ol>
+                    <ol>Space: {{product.space}}</ol> 
+                    <ol><img v-bind:src="product.image"></ol>
+                </ul>
+            </div>
+
+            <div class="checkout">
+                <p>
+                    <strong>First Name:</strong>
+                    <input type="text" v-model.trim="order.Firstname">
+                </p>
+                <p>
+                    <strong>Phonenumber</strong>
+                    <input type="number" v-model.trim="order.Phonenumber">
+                </p>
+            </div>
+
+            <h2>Order Confirmation</h2>
+            <div id="Orderconf">
+                <p>Name: {{order.Firstname}}</p>
+                <p>Phone number: {{order.Phonenumber}}</p>
+                <button v:on-click="SubmitOrder">Place Order</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let Vueapplication = new Vue ({
+            el: "#App",
+            data: {
+                sitename: "CW2 Individual Work ",
+                showProduct: true,
+                //products: [],
+                products: products,  
+                cart:[],
+                order: {
+                    Firstname: "",
+                    Phonenumber: ""
+                },
+            },
+            created: function() {
+                if ("serviceWorker" in navigator) {
+                    navigator.serviceWorker.register("service-worker.js");
+                }
+            //     fetch("http://localhost:3000/lessons").then(
+            //     fetch("https://webstorev1-env.eba-kvhfmh8p.eu-west-2.elasticbeanstalk.com/collections/products").then(
+            //         function(response) {
+            //             response.json().then(
+            //                 function(json) {
+            //                     console.log(json);
+            //                     Vueapplication.products = json;
+            //                 }
+            //             )
+            //         }
+            //     )
+             },
+            methods: {
+                addItemToCart: function(product) {
+                this.cart.push(product.id);
+            },
+            canAddToCart(product) {
+                return product.space > this.cartCount(product.id);
+            },
+            toggleShowProduct() {
+                this.showProduct = this.showProduct ? false : true;
+            },
+            cartCount(id) {
+                let count = 0;
+                for (let i = 0; i < this.cart.length; i++) {
+                    if (this.cart[i] === id) {
+                        count++;
+                    }
+                }
+                return count;
+            },
+            SubmitOrder() {
+                alert('Order has been submitted');
+            },
+            itemsLeft(product) {
+                return product.space - this.cartCount(product.id);
+            },
+        },
+        computed: {
+                totalItemsInTheCart: function () {
+                    return this.cart.length || "";
+                },
+                enableCart() {
+                        return this.cart.length > 0;
+                    },
+                sortedSubject() {
+                    function ascending(a, b) {
+                        if (a.subject > b.subject) return 1;
+                        if (a.subject < b.subject) return -1;
+                        return 0;
+                    }
+                    return this.products.sort(ascending);
+                },
+                sortedLocation() {
+                    function ascending(a, b) {
+                        if (a.location > b.location) return 1;
+                        if (a.location < b.location) return -1;
+                        return 0;
+                    }
+                    return this.products.sort(ascending);
+                },
+
+                sortedPrice() {
+                    function ascending(a, b) {
+                        if (a.price > b.price) return 1;
+                        if (a.price < b.price) return -1;
+                        return 0;
+                    }
+                    return this.products.sort(ascending);
+                },
+                sortedSpace() {
+                    function ascending(a, b) {
+                        if (a.space > b.space) return 1;
+                        if (a.space < b.space) return -1;
+                        return 0;
+                    }
+                    return this.products.sort(ascending);
+                },
+                sortedProductsB() {
+                    function descending(a, b) {
+                        if (a.location > b.location) return -1;
+                        if (a.location < b.location) return 1;
+                        return 0;
+                    }
+                    return this.products.sort(descending);
+                },
+                // sortedProducts() {
+                //     if(this.products.length > 0) {
+                //         let productsArray = this.products.slice(0);
+                //         function compare (a, b) {
+                //             if(a.location.toLowerCase() < b.location.toLowerCase())
+                //             return -1;
+                //             if(a.location.toLowerCase() > b.location.toLowerCase())
+                //             return 1;
+                //         return 0;
+                //         }
+                //         return productsArray.sort(compare);
+                //     }
+                // },
+        },
+    })
+    </script>
+</body>
+</html>
