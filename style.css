@@ -41,5 +41,12 @@ button {
 .search-container {
     position: absolute;
     left: 270px;
-    top: 37px;
+    top: 70px;
+}
+.test-elem {
+    position: relative;
+    right: 0px;
+    background-color: pink;
+    border-style: groove;
+    border-width: 2.5px;
 }

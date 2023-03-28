@@ -22,6 +22,28 @@
             <button disabled v-else>
                 <span class= "fas fa-cart-arrow-down"></span> View Cart
             </button>
+            <button v-if="testConsole" @click="toggleShowTestConsole">
+                <span class="fas fa-text height"></span>
+                Test Console
+            </button>
+            <div v-if="testConsole && showTestConsole" class="test-console">
+                <button class="test-elem"> 
+                    <span class="fas fa-search"></span>
+                    Test Product to DB
+                </button>
+                <button @click="deleteAllCaches" class="test-elem">
+                    <span class="fas fa-trash"></span>
+                    Delete All Caches
+                </button>
+                <button @click="reloadPage" class="test-elem">
+                    <span class="fas fa-sync"></span>Reload Page
+                </button>
+                <strong class="test-elem">HTTPS Test:</strong>
+                <a v-bind:href="AWS_URL" target="blank">link</a>
+                <button @click="unregisterAllServiceWorkers" class="test-elem">
+                    <span></span>Unregister all service workers
+                </button>
+            </div>
             <div id="sorting">
                 <button>subject</button>
                 <button>location</button>
@@ -63,6 +85,8 @@
                 <p>Price: {{product.price}}</p>
                 <p>Space: {{product.space}}</p>
                 <img v-bind:src="product.image">
+
+                <button v-on:click="removeLesson(product)">Remove</button>
         
             </div>
             <div id="Checkout">
@@ -88,27 +112,34 @@
             data: {
                 sitename:'Vue.js App',
                 showProduct: true,
-                //products: [],
-                products: products,
+                showTestConsole: true,
+                testConsole: true,
+                products: [],
+                //products: products,
                 cart: [],
+                serverURL: "http://localhost:3000/collections/products",
+                AWS_URL: "https://webstorev1-env.eba-kvhfmh8p.eu-west-2.elasticbeanstalk.com/collections/products",
                 order: {
                     firstName:'',
                     LastName:''
                 },
             },
-        //     created: function() {
-        //         // fetch("http://localhost:3000/lessons").then(
-        //         // fetch("https://webstorev1-env.eba-kvhfmh8p.eu-west-2.elasticbeanstalk.com/collections/products").then(
-        //         //     function(response) {
-        //         //         response.json().then(
-        //         //             function(json) {
-        //         //                 console.log(json);
-        //         //                 webstore.products = json;
-        //         //             }
-        //         //         )
-        //         //     }
-        //         // )
-        // },
+            created: function() {
+                if ("serviceWorker" in navigator) {
+                    navigator.serviceWorker.register("service-worker.js");
+                }
+                fetch(this.AWS_URL).then(
+                // fetch("https://webstorev1-env.eba-kvhfmh8p.eu-west-2.elasticbeanstalk.com/collections/products").then(
+                    function(response) {
+                        response.json().then(
+                            function(json) {
+                                console.log(json);
+                                webstore.products = json;
+                            }
+                        )
+                    }
+                )
+            },  
             methods: {
                 addItemToCart: function (selectedProduct) {
                     let x = parseFloat(selectedProduct.space);
@@ -122,6 +153,18 @@
                 },
                 toggleShowProduct() {
                     this.showProduct = this.showProduct ? false : true;
+                },
+                removeLesson: function (selectedProduct) {
+                    let index = this.cart.indexOf(selectedProduct);
+                    if (index > -1) {
+                        this.cart.splice(index, 1);
+                    }
+                    let lessonLength = this.products.length;
+                    for (let i = 0; i < lessonLength; i++) {
+                        if (this.products[i].id == selectedProduct.id) {
+                            this.products[i].space++;
+                        }
+                    }
                 },
                 canAddToCart(product) {
                 return product.space > this.cartCount(product.id);
@@ -141,6 +184,28 @@
                 SubmitOrder() {
                     alert('Thank you your order has been placed!')
                 },
+                deleteAllCaches() {
+                    caches.keys().then(function(names) {
+                        for (let name of names)
+                        caches.delete(name);
+                    })
+                },
+                unregisterAllServiceWorkers() {
+                    navigator.serviceWorker.getRegistration().then(
+                        function (registrations) {
+                            for (let registration of registrations) {
+                                registration.unregister()
+                            }
+                        }
+                    );
+                    console.log("ServiceWorkers Unregistered");
+                },
+                reloadPage() {
+                    window.location.reload();
+                },
+                toggleShowTestConsole() {
+                    this.showTestConsole = this.showTestConsole;
+                }
             },
             computed: {
                 totalItemsInTheCart: function() {
